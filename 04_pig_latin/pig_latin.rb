@@ -4,15 +4,25 @@
 # Rule 2: If a word begins with a consonant sound, move it to the end of the word, and then add an "ay" sound to the end of the word.
 #
 
+def translateWord(word)
+    res = case word
+    when /^[aeiouy]/
+        word+"ay"
+    when /^(qu+)(.*)/
+        $2+$1+"ay"
+    when /^([^aeiouy]+)(.*)/
+        $2+$1+"ay"
+    else
+        word
+    end
+end
+
 def translate(sentence)
     words = sentence.split(' ')
+
     words = words.map do |word|
-        if word[0].chr == 'q'
-            parts = ['qu', word.slice(2, word.length-2)]
-        else
-            parts = word.split(/([aeiou].*)/)
-        end
-        parts[1] + parts[0] + "ay"        
+        translateWord(word)   
     end
+    
     return words.join(" ")
 end

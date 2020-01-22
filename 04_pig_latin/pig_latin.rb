@@ -4,17 +4,25 @@
 # Rule 2: If a word begins with a consonant sound, move it to the end of the word, and then add an "ay" sound to the end of the word.
 #
 
+def add_ay(word)
+    return word + "ay"
+end
+
 def translateWord(word)
     res = case word
-    when /^[aeiouy]/
-        word+"ay"
-    when /^(qu+)(.*)/
-        $2+$1+"ay"
-    when /^([^aeiouy]+)(.*)/
-        $2+$1+"ay"
-    else
-        word
-    end
+            when /^[aeiouy]/
+                word
+            when /^(qu+)(.*)/
+                $2+$1
+            when /^([a-z]qu+)(.*)/
+                $2+$1
+            when /^([^aeiouy]+)(.*)/
+                $2+$1
+            else
+                word
+            end
+
+    add_ay(res)
 end
 
 def translate(sentence)
